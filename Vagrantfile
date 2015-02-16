@@ -9,7 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "web" do |web|
     web.vm.network "private_network", ip: "192.168.33.2"
-    web.vm.network "forwarded_port", guest: 8000, host: 8000
+    web.vm.network "forwarded_port", guest: 3000, host: 80
     web.vm.synced_folder "../mongo-express-app", "/app"
     web.vm.provision "shell", inline: <<-SCRIPT
       sudo apt-get install -y nodejs
