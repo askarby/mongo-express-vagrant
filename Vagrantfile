@@ -24,7 +24,11 @@ SCRIPT
       echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
       sudo apt-get update
       sudo apt-get install -y mongodb-org
-      sudo sed -i "s/bind_ip = 127.0.0.1/bind_ip=0.0.0.0/g" /etc/mongod.conf
+      sudo sed -i "s/bind_ip = 127.0.0.1/bind_ip = 0.0.0.0/g" /etc/mongod.conf
+      sudo sed -i "s/#port = 27017/port = 27017/g" /etc/mongod.conf
+      sudo sed -i "s/#auth = true/auth = true/g" /etc/mongod.conf
+      sudo locale-gen da_DK.UTF-8
+      sudo mongo easv --eval "db.createUser({user:'easv', pwd:'easv', roles: ['readWrite']})"
       sudo service mongod stop && sudo service mongod start
 SCRIPT
   end
